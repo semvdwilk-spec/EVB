@@ -35,6 +35,16 @@
       padding:16px 20px;
       font-weight:900;
       letter-spacing:.3px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .heroTop .sub{
+      font-weight:800;
+      opacity:.9;
+      letter-spacing:.2px;
     }
     .heroBody{padding:20px}
     h1{margin:0 0 10px;font-size:26px}
@@ -64,15 +74,30 @@
     }
     h2{margin:0 0 12px;font-size:18px}
     ul{margin:0;padding-left:18px;line-height:1.6}
+    .vol{
+      display:inline-block;
+      font-weight:900;
+      color:var(--evb-black);
+      background:rgba(243,173,45,.75);
+      border:1px solid rgba(243,173,45,.9);
+      padding:2px 10px;
+      border-radius:999px;
+      transform:translateY(-1px);
+      margin-left:6px;
+      white-space:nowrap;
+    }
 
-    label{display:block;font-weight:700;margin:12px 0 6px}
+    label{display:block;font-weight:800;margin:12px 0 6px}
     input,select{
       width:100%;
       padding:12px;
       border-radius:12px;
       border:1px solid var(--border);
       font-size:16px;
+      background:#fff;
+      color:var(--evb-black);
     }
+    input::placeholder{opacity:.55}
     input:focus,select:focus{
       outline:none;
       border-color:var(--evb-yellow);
@@ -81,6 +106,12 @@
 
     .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     @media(max-width:600px){.two{grid-template-columns:1fr}}
+
+    .hint{
+      font-size:12px;
+      opacity:.7;
+      margin-top:6px;
+    }
 
     .price{
       display:flex;
@@ -120,9 +151,8 @@
     .error{
       margin-top:12px;
       color:#b00020;
-      font-weight:700;
+      font-weight:800;
     }
-
     footer{
       margin-top:16px;
       font-size:13px;
@@ -137,7 +167,8 @@
 
   <div class="hero">
     <div class="heroTop">
-      Loop mee met EVB — Zaterdag 28 februari 2026
+      <div>Loop mee met EVB — Zaterdag 28 februari 2026</div>
+      <div class="sub">En steun óók De Kleine Duiker daarmee!</div>
     </div>
     <div class="heroBody">
       <h1>5 km wandelen • 5 km hardlopen • 10 km hardlopen</h1>
@@ -157,7 +188,7 @@
       <ul>
         <li>Kleinschalig evenement (max. 350 deelnemers)</li>
         <li>Geen officiële tijdregistratie (wel klok bij start/finish)</li>
-        <li>Vooraf inschrijven en betalen – vol = vol</li>
+        <li>Vooraf inschrijven en betalen <span class="vol">vol = vol</span></li>
         <li>Parkeren in de omgeving van De Kleine Duiker</li>
         <li>Bij aankomst melden bij de inschrijfkraam</li>
         <li>Na de finish ontvang je een klein aandenken</li>
@@ -181,27 +212,30 @@
         </select>
 
         <label>Naam</label>
-        <input id="name" required>
+        <input id="name" autocomplete="name" required>
 
         <div class="two">
           <div>
             <label>Geboortedatum</label>
-            <input id="dob" type="date" required>
+            <!-- tekstveld i.p.v. type=date => geen rare kalender-box -->
+            <input id="dob" type="text" inputmode="numeric" autocomplete="bday"
+                   placeholder="dd-mm-jjjj" required>
+            <div class="hint">Format: dd-mm-jjjj</div>
           </div>
           <div>
             <label>Woonplaats</label>
-            <input id="city" required>
+            <input id="city" autocomplete="address-level2" required>
           </div>
         </div>
 
         <div class="two">
           <div>
             <label>E-mailadres</label>
-            <input id="email" type="email" required>
+            <input id="email" type="email" autocomplete="email" required>
           </div>
           <div>
             <label>Bevestig e-mailadres</label>
-            <input id="email2" type="email" required>
+            <input id="email2" type="email" autocomplete="email" required>
           </div>
         </div>
 
@@ -234,6 +268,17 @@
   const EVENT_DATE = new Date("2026-02-28T00:00:00");
   const $ = id => document.getElementById(id);
 
+  function parseDutchDate(str){
+    const s = (str || "").trim().replace(/\//g, "-");
+    const m = /^(\d{2})-(\d{2})-(\d{4})$/.exec(s);
+    if(!m) return null;
+    const dd = Number(m[1]), mm = Number(m[2]), yyyy = Number(m[3]);
+    const d = new Date(`${yyyy}-${String(mm).padStart(2,"0")}-${String(dd).padStart(2,"0")}T00:00:00`);
+    // harde validatie (voorkomt 32-13-2026 etc.)
+    if(d.getFullYear() !== yyyy || d.getMonth() !== (mm-1) || d.getDate() !== dd) return null;
+    return d;
+  }
+
   function ageOnEvent(d){
     let age = EVENT_DATE.getFullYear() - d.getFullYear();
     const m = EVENT_DATE.getMonth() - d.getMonth();
@@ -241,16 +286,30 @@
     return age;
   }
 
+  function formatDobLive(value){
+    // houdt alleen cijfers, bouwt dd-mm-jjjj op
+    const digits = (value || "").replace(/\D/g, "").slice(0, 8);
+    const parts = [];
+    if(digits.length > 0) parts.push(digits.slice(0,2));
+    if(digits.length > 2) parts.push(digits.slice(2,4));
+    if(digits.length > 4) parts.push(digits.slice(4,8));
+    return parts.join("-");
+  }
+
   function updatePrice(){
-    if(!$("dob").value){ $("price").textContent="—"; return null; }
-    const dob = new Date($("dob").value+"T00:00:00");
-    const age = ageOnEvent(dob);
+    const dobDate = parseDutchDate($("dob").value);
+    if(!dobDate){ $("price").textContent="—"; return null; }
+    const age = ageOnEvent(dobDate);
     const amount = age >= 18 ? 5.00 : 2.50;
     $("price").textContent = new Intl.NumberFormat("nl-NL",{style:"currency",currency:"EUR"}).format(amount);
     return age;
   }
 
-  $("dob").addEventListener("change", updatePrice);
+  $("dob").addEventListener("input", ()=>{
+    const formatted = formatDobLive($("dob").value);
+    if($("dob").value !== formatted) $("dob").value = formatted;
+    updatePrice();
+  });
 
   $("form").addEventListener("submit", e=>{
     e.preventDefault();
@@ -265,7 +324,13 @@
       return;
     }
 
-    const age = updatePrice();
+    const dobDate = parseDutchDate($("dob").value);
+    if(!dobDate){
+      $("error").textContent="Geboortedatum klopt niet. Gebruik dd-mm-jjjj.";
+      return;
+    }
+
+    const age = ageOnEvent(dobDate);
     const payUrl = age >= 18 ? PAY_URL_ADULT : PAY_URL_UNDER18;
 
     if(!payUrl.startsWith("http")){
@@ -274,6 +339,11 @@
     }
 
     window.location.href = payUrl;
+  });
+
+  $("form").addEventListener("reset", ()=>{
+    $("error").textContent="";
+    $("price").textContent="—";
   });
 </script>
 
