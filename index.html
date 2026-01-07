@@ -30,7 +30,6 @@
 
       --radius:18px;
       --shadow: 0 18px 50px rgba(0,0,0,.10);
-
       --focus-ring: rgba(var(--evb-yellow-rgb), .28);
     }
 
@@ -58,9 +57,10 @@
       color: #fff;
     }
 
+    /* FORCE exact geel (geen variabelen-lek, geen overrides) */
     .hero-top{
-      background: var(--evb-yellow) !important;
-      color: var(--black);
+      background-color: #EAAF4A !important;
+      color: #0b0c0f;
       padding: 16px 18px;
       display:flex;
       gap: 14px;
@@ -75,7 +75,7 @@
       align-items: baseline;
       gap: 10px;
       font-weight: 900;
-      font-size: 22px;
+      font-size: 22px;     /* groter op laptop */
       line-height: 1.1;
       letter-spacing: .1px;
     }
@@ -86,7 +86,7 @@
       opacity: .92;
     }
 
-    /* Rechtertekst niet groter maken */
+    /* Rechter tekst NIET groter maken */
     .scribble{
       font-family: Kalam, cursive;
       font-weight: 700;
@@ -155,23 +155,15 @@
     }
 
     @media (max-width: 520px){
-      .hero-top{
-        padding: 16px 16px;
-        gap: 10px;
-      }
+      .hero-top{ padding: 16px 16px; gap: 10px; }
       .leftline{
         flex-direction: column;
         align-items: flex-start;
         gap: 2px;
         font-size: 20px;
       }
-      .leftline .date{
-        font-size: 14px;
-      }
-      .scribble{
-        font-size: 20px;
-        white-space: normal;
-      }
+      .leftline .date{ font-size: 14px; }
+      .scribble{ font-size: 20px; white-space: normal; }
     }
 
     @media (max-width: 420px){
@@ -201,7 +193,6 @@
       font-size: 16px;
       line-height: 1.55;
     }
-
     li{ margin: 8px 0; color: var(--text); }
 
     .muted{
@@ -215,8 +206,8 @@
       display:inline-block;
       padding: 4px 10px;
       border-radius: 999px;
-      background: rgba(var(--evb-yellow-rgb), .18) !important;
-      border: 1px solid rgba(var(--evb-yellow-rgb), .35) !important;
+      background: rgba(234,175,74,.18) !important;
+      border: 1px solid rgba(234,175,74,.35) !important;
       color: #6a5200;
       font-weight: 900;
       margin-left: 6px;
@@ -246,8 +237,8 @@
     }
 
     input:focus{
-      border-color: var(--evb-yellow-dark) !important;
-      box-shadow: 0 0 0 4px var(--focus-ring) !important;
+      border-color: #CE9A41 !important;
+      box-shadow: 0 0 0 4px rgba(234,175,74,.28) !important;
     }
 
     .pricebox{
@@ -299,8 +290,8 @@
       cursor:pointer;
       padding: 14px 14px;
       border-radius: 14px;
-      background: var(--evb-yellow) !important;
-      color: var(--black);
+      background-color: #EAAF4A !important;   /* FORCE exact */
+      color: #0b0c0f;
       font-size: 16px;
       font-weight: 900;
       letter-spacing: .2px;
@@ -324,14 +315,14 @@
       padding: 14px 14px;
       border-radius: 14px;
       background: #fff;
-      border: 2px solid var(--evb-yellow) !important;
-      color: var(--black);
+      border: 2px solid #EAAF4A !important;  /* FORCE exact */
+      color: #0b0c0f;
       font-size: 16px;
       font-weight: 900;
     }
 
     .btn-secondary:hover{
-      background: rgba(var(--evb-yellow-rgb), .12) !important;
+      background: rgba(234,175,74,.12) !important;
     }
 
     .btn-secondary:focus-visible{
