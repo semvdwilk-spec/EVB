@@ -1,14 +1,11 @@
+<!-- bedankt.html -->
 <!doctype html>
 <html lang="nl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Loop mee met EVB. Zaterdag 28 februari 2026</title>
-  <meta name="description" content="Schrijf je in voor EVB op zaterdag 28 februari 2026. Met je deelname steun je De Kleine Duiker." />
-
-  <meta property="og:title" content="Loop mee met EVB. Zaterdag 28 februari 2026" />
-  <meta property="og:description" content="Met je deelname steun je De Kleine Duiker. Schrijf je in en rond je betaling af via Stripe." />
-  <meta property="og:type" content="website" />
+  <title>Bedankt. Inschrijving gelukt</title>
+  <meta name="description" content="Bedankt voor je inschrijving. Je kan nu eventueel extra doneren." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,10 +13,8 @@
 
   <style>
     :root{
-      /* EVB geel exact */
-      --evb-yellow:#EAAF4A;
-      --evb-yellow-dark:#CE9A41;
-      --evb-yellow-rgb:234,175,74;
+      --yellow:#FFD200;
+      --yellow-rgb:255,210,0;
 
       --bg:#f4f5f7;
       --card:#ffffff;
@@ -30,7 +25,6 @@
 
       --radius:18px;
       --shadow: 0 18px 50px rgba(0,0,0,.10);
-      --focus-ring: rgba(var(--evb-yellow-rgb), .28);
     }
 
     *{ box-sizing:border-box; }
@@ -43,136 +37,48 @@
     }
 
     .wrap{
-      max-width: 1120px;
+      max-width: 900px;
       margin: 28px auto 60px;
       padding: 0 16px;
     }
 
-    /* Hero */
     .hero{
       border-radius: 22px;
       overflow: hidden;
       box-shadow: var(--shadow);
-      background: linear-gradient(180deg, rgba(0,0,0,.03), rgba(0,0,0,0)) , var(--black);
+      background: var(--black);
       color: #fff;
     }
 
-    /* FORCE exact geel (geen variabelen-lek, geen overrides) */
     .hero-top{
-      background-color: #EAAF4A !important;
-      color: #0b0c0f;
+      background: var(--yellow);
+      color: var(--black);
       padding: 16px 18px;
       display:flex;
-      gap: 14px;
-      align-items: center;
+      align-items:center;
       justify-content: space-between;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
-    /* Alleen links groter op laptop */
     .leftline{
-      display:flex;
-      align-items: baseline;
-      gap: 10px;
       font-weight: 900;
-      font-size: 22px;     /* groter op laptop */
-      line-height: 1.1;
+      font-size: 22px;
       letter-spacing: .1px;
-    }
-    .leftline strong{ font-weight: 900; }
-    .leftline .date{
-      font-size: 18px;
-      font-weight: 800;
-      opacity: .92;
+      line-height: 1.1;
     }
 
-    /* Rechter tekst NIET groter maken */
     .scribble{
       font-family: Kalam, cursive;
       font-weight: 700;
       font-size: 26px;
       line-height: 1.05;
-      letter-spacing: .1px;
-      white-space: nowrap;
     }
 
-    .hero-body{
-      padding: 22px 18px 18px;
-    }
+    .hero-body{ padding: 18px; }
 
-    .hero-title{
-      margin:0;
-      font-size: 36px;
-      line-height: 1.1;
-      font-weight: 900;
-      letter-spacing: -.6px;
-    }
-
-    .hero-sub{
-      margin: 10px 0 16px;
-      color: rgba(255,255,255,.82);
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    .badges{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 8px;
-    }
-
-    .badge{
-      display:inline-flex;
-      gap: 8px;
-      align-items:center;
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.10);
-      border: 1px solid rgba(255,255,255,.16);
-      color: rgba(255,255,255,.92);
-      font-size: 14px;
-      line-height: 1;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-    .badge b{ color:#fff; }
-
-    /* Grid */
-    .grid{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 18px;
-      margin-top: 18px;
-    }
-
-    @media (max-width: 980px){
-      .grid{ grid-template-columns: 1fr; }
-      .hero-title{ font-size: 30px; }
-      .leftline{ font-size: 20px; }
-      .leftline .date{ font-size: 16px; }
-      .scribble{ font-size: 24px; }
-    }
-
-    @media (max-width: 520px){
-      .hero-top{ padding: 16px 16px; gap: 10px; }
-      .leftline{
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2px;
-        font-size: 20px;
-      }
-      .leftline .date{ font-size: 14px; }
-      .scribble{ font-size: 20px; white-space: normal; }
-    }
-
-    @media (max-width: 420px){
-      .hero-title{ font-size: 26px; }
-      .hero-sub{ font-size: 14px; }
-    }
-
-    /* Cards */
     .card{
+      margin-top: 18px;
       background: var(--card);
       border-radius: var(--radius);
       box-shadow: 0 10px 30px rgba(0,0,0,.07);
@@ -180,131 +86,38 @@
       padding: 18px;
     }
 
-    h2{
-      margin: 0 0 12px;
-      font-size: 20px;
-      letter-spacing: -.2px;
+    h1{
+      margin: 0 0 6px;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -.4px;
     }
 
-    ul{
-      margin: 10px 0 0 18px;
-      padding:0;
-      color: var(--text);
-      font-size: 16px;
-      line-height: 1.55;
-    }
-    li{ margin: 8px 0; color: var(--text); }
-
-    .muted{
+    p{
+      margin: 10px 0 0;
       color: var(--muted);
-      font-size: 13px;
       line-height: 1.5;
-      margin-top: 10px;
-    }
-
-    .volvol{
-      display:inline-block;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(234,175,74,.18) !important;
-      border: 1px solid rgba(234,175,74,.35) !important;
-      color: #6a5200;
-      font-weight: 900;
-      margin-left: 6px;
-    }
-
-    /* Form */
-    form{ margin-top: 6px; }
-
-    label{
-      display:block;
-      font-size: 13px;
-      color: var(--muted);
-      margin: 12px 0 6px;
-      font-weight: 700;
-    }
-
-    input{
-      width:100%;
-      min-width:0;
-      padding: 12px 12px;
-      border-radius: 12px;
-      border: 1px solid #d9dde7;
-      background: #fff;
-      outline: none;
-      font-size: 16px;
-      min-height: 44px;
-    }
-
-    input:focus{
-      border-color: #CE9A41 !important;
-      box-shadow: 0 0 0 4px rgba(234,175,74,.28) !important;
-    }
-
-    .pricebox{
-      margin-top: 14px;
-      padding: 12px;
-      border-radius: 14px;
-      background: #fbfbfd;
-      border: 1px solid var(--line);
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    .pricebox .left{
-      display:flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .price{
-      font-size: 22px;
-      font-weight: 900;
-      letter-spacing: -.3px;
-    }
-
-    .small{
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
-    .error{
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: #fff2f2;
-      border: 1px solid #ffd2d2;
-      color: #a10000;
-      font-size: 13px;
-      display:none;
     }
 
     .btn{
+      display:block;
       width:100%;
       margin-top: 14px;
       border: 0;
       cursor:pointer;
       padding: 14px 14px;
       border-radius: 14px;
-      background-color: #EAAF4A !important;   /* FORCE exact */
-      color: #0b0c0f;
+      background: var(--yellow);
+      color: var(--black);
       font-size: 16px;
       font-weight: 900;
       letter-spacing: .2px;
+      text-align:center;
+      text-decoration:none;
       box-shadow: 0 10px 22px rgba(0,0,0,.08);
-      transition: transform .08s ease, filter .15s ease;
     }
 
     .btn:hover{ filter: brightness(1.02); }
-    .btn:active{ transform: translateY(1px); }
-    .btn:focus-visible{
-      outline: 3px solid rgba(0,0,0,.35);
-      outline-offset: 2px;
-    }
 
     .btn-secondary{
       display:block;
@@ -315,32 +128,21 @@
       padding: 14px 14px;
       border-radius: 14px;
       background: #fff;
-      border: 2px solid #EAAF4A !important;  /* FORCE exact */
-      color: #0b0c0f;
+      border: 2px solid var(--yellow);
+      color: var(--black);
       font-size: 16px;
       font-weight: 900;
     }
 
     .btn-secondary:hover{
-      background: rgba(234,175,74,.12) !important;
+      background: rgba(var(--yellow-rgb), .12);
     }
 
-    .btn-secondary:focus-visible{
-      outline: 3px solid rgba(0,0,0,.35);
-      outline-offset: 2px;
-    }
-
-    .footnote{
+    .small{
       margin-top: 10px;
       font-size: 12px;
       color: var(--muted);
       line-height: 1.4;
-    }
-
-    .divider{
-      height:1px;
-      background: var(--line);
-      margin: 14px 0 0;
     }
   </style>
 </head>
@@ -350,134 +152,35 @@
 
     <section class="hero">
       <div class="hero-top">
-        <div class="leftline">
-          <strong>Loop mee met EVB</strong>
-          <span class="date">Zaterdag 28 februari 2026</span>
-        </div>
+        <div class="leftline">Bedankt. Inschrijving gelukt</div>
         <div class="scribble">Steun De Kleine Duiker</div>
       </div>
-
       <div class="hero-body">
-        <h1 class="hero-title">5 km wandelen. 5 km hardlopen. 10 km hardlopen</h1>
-        <p class="hero-sub">
-          Met je deelname steun je <b>De Kleine Duiker</b>. Het inschrijfgeld wordt volledig gedoneerd.
-        </p>
-
-        <div class="badges">
-          <div class="badge">📍 <b>Barendrecht</b>. De Kleine Duiker</div>
-          <div class="badge">⏱️ Hardlopen <b>13:00</b>. Wandelen <b>13:15</b></div>
-          <div class="badge">👥 Max. <b>350</b> deelnemers</div>
-        </div>
+        <h1>Tot 28 februari 2026</h1>
+        <p>Je ontvangt de bevestiging en extra info per mail via Stripe.</p>
       </div>
     </section>
 
-    <section class="grid">
-      <div class="card">
-        <h2>Praktische informatie</h2>
-        <ul>
-          <li>Kleinschalig evenement (max. 350 deelnemers)</li>
-          <li>Geen officiële tijdregistratie (wel klok bij start/finish)</li>
-          <li><b>Vooraf inschrijven en betalen</b><span class="volvol">VOL = VOL</span></li>
-          <li>Parcours van 5 km in de Zuidpolder. 10 km is 2 × 5 km.</li>
-          <li>Parkeren in de omgeving van De Kleine Duiker</li>
-          <li>Kom zoveel mogelijk op de fiets.</li>
-          <li>Het inschrijfpunt is centraal op het terrein.</li>
-          <li>Bij aankomst ontvang je je deelnamebandje.</li>
-          <li>Er is beperkte omkleedruimte.</li>
-          <li>Na de finish ontvang je een klein aandenken</li>
-          <li>Je ontvangt een bevestiging per mail met extra info.</li>
-        </ul>
+    <div class="card">
+      <h2>Extra doneren (optioneel)</h2>
+      <p>Wil je extra doneren bovenop je inschrijfgeld? Dat kan hier.</p>
 
-        <div class="divider"></div>
+      <a class="btn" id="donateBtn" href="https://buy.stripe.com/eVq9AVgsmemAgfRcbmdby02">
+        Doneer extra
+      </a>
 
-        <p class="muted">
-          Leeftijd wordt bepaald op <b>28 februari 2026</b>.<br>
-          Onder 18 jaar. <b>€ 2,50</b>. 18+. <b>€ 5,00</b>.
-        </p>
+      <a class="btn-secondary" href="./">
+        Terug naar de inschrijfpagina
+      </a>
+
+      <div class="small">
+        Als je via een organisatie-link kwam, nemen we die tracking mee naar Stripe.
       </div>
-
-      <div class="card">
-        <h2>Inschrijven</h2>
-
-        <form id="regForm" novalidate>
-          <label for="dob">Geboortedatum</label>
-          <input id="dob" type="date" required />
-
-          <div class="pricebox" aria-live="polite">
-            <div class="left">
-              <div class="small">Jouw inschrijfgeld</div>
-              <div class="price" id="priceText">—</div>
-              <div class="small" id="ageText">Vul je geboortedatum in om je tarief te zien.</div>
-            </div>
-            <div class="small">
-              In de volgende stap vul je je naam en afstand in en rond je de betaling af.
-            </div>
-          </div>
-
-          <div class="error" id="errorBox"></div>
-
-          <button class="btn" type="submit">Verder naar betaling</button>
-
-          <a class="btn-secondary" id="donateMore" href="https://buy.stripe.com/test_donation_placeholder">
-            Ik doneer meer
-          </a>
-
-          <div class="footnote">
-            Je wordt doorgestuurd naar Stripe om je inschrijving af te ronden.
-          </div>
-        </form>
-      </div>
-    </section>
+    </div>
 
   </div>
 
   <script>
-    const EVENT_DATE = new Date("2026-02-28T00:00:00+01:00");
-
-    const STRIPE_LINK_U18   = "https://buy.stripe.com/test_u18_placeholder";
-    const STRIPE_LINK_ADULT = "https://buy.stripe.com/test_adult_placeholder";
-
-    const euro = (n) => n.toLocaleString("nl-NL", { style:"currency", currency:"EUR" });
-
-    function calcAgeOnEvent(dobStr){
-      const d = new Date(dobStr);
-      if (Number.isNaN(d.getTime())) return null;
-
-      let age = EVENT_DATE.getFullYear() - d.getFullYear();
-      const m = EVENT_DATE.getMonth() - d.getMonth();
-      if (m < 0 || (m === 0 && EVENT_DATE.getDate() < d.getDate())) age--;
-      return age;
-    }
-
-    function updatePrice(){
-      const dob = document.getElementById("dob").value;
-      const priceText = document.getElementById("priceText");
-      const ageText = document.getElementById("ageText");
-
-      const age = calcAgeOnEvent(dob);
-      if (age === null){
-        priceText.textContent = "—";
-        ageText.textContent = "Vul je geboortedatum in om je tarief te zien.";
-        return;
-      }
-
-      const price = age < 18 ? 2.50 : 5.00;
-      priceText.textContent = euro(price);
-      ageText.textContent = `Leeftijd op 28 feb 2026: ${age} jaar. Tarief: ${age < 18 ? "onder 18" : "18+"}.`;
-    }
-
-    function showError(msg){
-      const box = document.getElementById("errorBox");
-      box.style.display = "block";
-      box.textContent = msg;
-    }
-
-    function clearError(){
-      const box = document.getElementById("errorBox");
-      box.style.display = "none";
-      box.textContent = "";
-    }
-
     function withQueryParams(baseUrl){
       const params = new URLSearchParams(window.location.search);
       if (![...params.keys()].length) return baseUrl;
@@ -487,27 +190,8 @@
       return url.toString();
     }
 
-    document.getElementById("dob").addEventListener("change", updatePrice);
-    document.getElementById("dob").addEventListener("input", updatePrice);
-
-    const donate = document.getElementById("donateMore");
+    const donate = document.getElementById("donateBtn");
     donate.href = withQueryParams(donate.href);
-
-    document.getElementById("regForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      clearError();
-
-      const dob = document.getElementById("dob").value.trim();
-      if(!dob) return showError("Vul je geboortedatum in.");
-
-      const age = calcAgeOnEvent(dob);
-      if (age === null) return showError("Je geboortedatum lijkt niet te kloppen.");
-
-      const stripeUrl = (age < 18) ? STRIPE_LINK_U18 : STRIPE_LINK_ADULT;
-      window.location.href = withQueryParams(stripeUrl);
-    });
-
-    updatePrice();
   </script>
 </body>
 </html>
